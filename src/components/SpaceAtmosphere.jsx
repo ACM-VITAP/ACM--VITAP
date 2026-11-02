@@ -60,7 +60,7 @@ export default function SpaceAtmosphere({ activeTab = 'home' }) {
 
     // Balanced star count for high visual impact without fill-rate saturation
     const mobile = isMobile();
-    const lowPower = mobile || (navigator.hardwareConcurrency || 4) <= 4 || (navigator.deviceMemory || 4) <= 4;
+    const lowPower = mobile || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
     const starCount = lowPower ? 36 : 140;
     const stars = Array.from({ length: starCount }, () => ({
       x: Math.random() * width,

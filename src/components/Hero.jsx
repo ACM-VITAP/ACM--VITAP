@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------
 import React from 'react';
 import { ArrowRight, Play } from 'lucide-react';
+import RobotVideo from './RobotVideo.jsx';
+import NexGreeting from './NexGreeting.jsx';
 
 // ─── SVG Social Icons ───────────────────────────────────────────────────────
 const LinkedinIcon = () => (
@@ -25,9 +27,12 @@ const YoutubeIcon = () => (
   </svg>
 );
 
-export default function Hero({ onNavigate }) {
+export default function Hero({ onNavigate, lowPower = false }) {
   return (
     <section className="hero-universe" id="home">
+      <RobotVideo lowPower={lowPower} />
+      <NexGreeting />
+
       {/* Far Left Edge Social Column & Scroll Indicator */}
       <div className="hero-left-sidebar" aria-label="Social links and scroll">
         <div className="hero-social-strip">

@@ -7,9 +7,6 @@ import { ArrowRight, ChevronRight, Globe as GlobeIcon, X } from 'lucide-react';
 import Loader from './components/Loader.jsx';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
-import Events from './components/Events.jsx';
-import Team from './components/Team.jsx';
-import About from './components/About.jsx';
 
 import SpaceAtmosphere from './components/SpaceAtmosphere.jsx';
 import CursorEffects from './components/CursorEffects.jsx';
@@ -17,6 +14,10 @@ import SmoothScrollEffects from './components/SmoothScrollEffects.jsx';
 
 // Lazy-load the heavy 3D Space Scene (Globe, Robot, Stars, Bloom)
 const SpaceUniverse = lazy(() => import('./components/SpaceUniverse.jsx'));
+const About = lazy(() => import('./components/About.jsx'));
+const Events = lazy(() => import('./components/Events.jsx'));
+const Team = lazy(() => import('./components/Team.jsx'));
+const Contact = lazy(() => import('./components/Contact.jsx'));
 
 // ─── WebGL Support Detection ────────────────────────────────────────────────
 function detectWebGL() {
@@ -31,8 +32,10 @@ function detectWebGL() {
 function getPerformanceProfile() {
   if (typeof window === 'undefined') return { lowPower: false };
   const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-  const cores = navigator.hardwareConcurrency || 4;
-  const memory = navigator.deviceMemory || 4;
+  // These APIs are optional. Unknown hardware should not be treated as low
+  // power, which would unnecessarily downgrade capable desktops.
+  const cores = navigator.hardwareConcurrency || 8;
+  const memory = navigator.deviceMemory || 8;
   return { lowPower: coarsePointer || cores <= 4 || memory <= 4 };
 }
 
@@ -262,8 +265,6 @@ function EventGallery() {
   </section>;
 }
 
-import Contact from './components/Contact.jsx';
-
 // ─── MASTER APP COMPONENT ───────────────────────────────────────────────────
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -384,41 +385,43 @@ export default function App() {
 
       {/* Content Layer (Dedicated Views divided by Navbar Tabs) */}
       <main className="content-layer">
-        {activeTab === 'home' && (
+        <Suspense fallback={<div className="view-loading" aria-label="Loading section" />}>
+          {activeTab === 'home' && (
           <div key="view-home" className="view-container">
-            <Hero onNavigate={handleNavigate} />
+              <Hero onNavigate={handleNavigate} lowPower={performanceProfile.lowPower} />
           </div>
-        )}
+          )}
 
-        {activeTab === 'about' && (
+          {activeTab === 'about' && (
           <div key="view-about" className="view-container">
             <About onNavigate={handleNavigate} />
           </div>
-        )}
+          )}
 
-        {activeTab === 'events' && (
+          {activeTab === 'events' && (
           <div key="view-events" className="view-container">
             <Events />
           </div>
-        )}
+          )}
 
-        {activeTab === 'teams' && (
+          {activeTab === 'teams' && (
           <div key="view-teams" className="view-container">
             <Team />
           </div>
-        )}
+          )}
 
-        {activeTab === 'gallery' && (
+          {activeTab === 'gallery' && (
           <div key="view-gallery" className="view-container">
             <EventGallery />
           </div>
-        )}
+          )}
 
-        {(activeTab === 'contact' || activeTab === 'join') && (
+          {(activeTab === 'contact' || activeTab === 'join') && (
           <div key="view-contact" className="view-container">
             <Contact />
           </div>
-        )}
+          )}
+        </Suspense>
       </main>
     </div>
   );
