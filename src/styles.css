@@ -4612,17 +4612,36 @@ section[id],
     padding: 5.5rem 1.25rem 3.5rem 1.25rem;
     min-height: 100svh;
   }
+  .hero-3d-visual-zone {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 4;
+  }
   .hero-robot-video {
-    top: 38%;
-    right: -16%;
-    width: 116vw;
-    opacity: .88;
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 16 / 9;
+    opacity: 1;
+    filter: saturate(1.1) drop-shadow(0 0 24px rgba(0, 190, 255, 0.35));
+    transform: none;
+    margin: 0 auto;
   }
   .hero-nex-greeting {
-    top: 25%;
-    right: 6%;
-    width: min(76vw, 300px);
-    backdrop-filter: none;
+    top: -10px;
+    right: 0;
+    width: min(78vw, 290px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .hero-left-sidebar {
@@ -4631,7 +4650,7 @@ section[id],
 
   .hero-content-layer {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .hero-typography-block {
@@ -7046,15 +7065,16 @@ section[id],
     z-index: 5;
   }
   .hero-3d-visual-zone {
-    position: absolute;
-    inset: 0;
-    min-height: 0;
+    position: relative;
+    width: 100%;
+    min-height: 260px;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
+    z-index: 4;
+    overflow: visible;
   }
   .hero-chapter-eyebrow {
     margin-bottom: 0.75rem;
@@ -7853,9 +7873,15 @@ section[id],
   }
 
   .hero-robot-video {
-    top: 44%;
-    right: -22%;
-    opacity: .8;
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 340px;
+    opacity: 1;
+    filter: saturate(1.1) drop-shadow(0 0 20px rgba(0, 190, 255, 0.3));
+    margin: 0 auto;
   }
 }
 
@@ -7865,9 +7891,14 @@ section[id],
   }
 
   .hero-robot-video {
-    top: 44%;
-    right: -25%;
-    width: 122vw;
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 300px;
+    opacity: 1;
+    margin: 0 auto;
   }
 }
 
