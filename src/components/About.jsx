@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // src/components/About.jsx — Comprehensive Futuristic About Page for ACM VIT-AP
 // ---------------------------------------------------------------------------
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Code2,
   Trophy,
@@ -34,6 +34,25 @@ import { FACULTY_COORDINATOR, ADMIN_PRESIDENCY, ADMIN_CORE_OFFICERS } from '../d
 
 export default function About({ onNavigate }) {
   const [activeStoryTab, setActiveStoryTab] = useState('vision');
+
+  // Immediate fail-safe reveal for About elements in initial viewport on mount
+  useEffect(() => {
+    const triggerInitialReveals = () => {
+      const targets = document.querySelectorAll(
+        '.about-futuristic-page .about-stagger-float, .about-futuristic-page .about-float-up'
+      );
+      targets.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 1.15) {
+          el.classList.add('is-in-view');
+        }
+      });
+    };
+
+    triggerInitialReveals();
+    const timer = setTimeout(triggerInitialReveals, 80);
+    return () => clearTimeout(timer);
+  }, []);
 
   const activities = [
     {
@@ -203,7 +222,7 @@ export default function About({ onNavigate }) {
       {/* ─── 1. HERO SECTION: WHO WE ARE ─────────────────────────────────── */}
       <section className="about-hero-block" id="about-hero">
         <div className="about-hero-hud-frame">
-          <div className="about-hero-grid about-stagger-float">
+          <div className="about-hero-grid about-hero-entrance is-in-view">
             <div className="about-hero-content">
               <h1 className="about-hero-headline">
                 Where Curiosity Meets <span className="cyber-cyan-gradient">Computing.</span>
@@ -684,7 +703,7 @@ export default function About({ onNavigate }) {
               <a
                 href="https://www.linkedin.com/company/acm-student-chapter-vit-ap/"
                 target="_blank"
-                rel="noreferrer noopener"
+                rel="noopener noreferrer"
                 className="join-portal-btn outline-portal"
               >
                 <Globe size={17} />

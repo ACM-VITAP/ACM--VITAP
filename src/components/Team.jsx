@@ -117,7 +117,7 @@ function MemberCard({ member, variant = 'standard', index = 0, layout = 'auto' }
                   <a
                     href={member.socials.linkedin}
                     target="_blank"
-                    rel="noreferrer noopener"
+                    rel="noopener noreferrer"
                     aria-label={`${member.name}'s LinkedIn profile`}
                   >
                     <LinkedinIcon />
@@ -127,7 +127,7 @@ function MemberCard({ member, variant = 'standard', index = 0, layout = 'auto' }
                   <a
                     href={member.socials.github}
                     target="_blank"
-                    rel="noreferrer noopener"
+                    rel="noopener noreferrer"
                     aria-label={`${member.name}'s GitHub profile`}
                   >
                     <GithubIcon />
@@ -175,7 +175,7 @@ function MemberCard({ member, variant = 'standard', index = 0, layout = 'auto' }
                 <a
                   href={member.socials.linkedin}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                   aria-label={`${member.name}'s LinkedIn profile`}
                 >
                   <LinkedinIcon />
@@ -185,7 +185,7 @@ function MemberCard({ member, variant = 'standard', index = 0, layout = 'auto' }
                 <a
                   href={member.socials.github}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                   aria-label={`${member.name}'s GitHub profile`}
                 >
                   <GithubIcon />
@@ -458,7 +458,7 @@ export default function Team() {
                   <a
                     href={FACULTY_COORDINATOR.socials.linkedin}
                     target="_blank"
-                    rel="noreferrer noopener"
+                    rel="noopener noreferrer"
                     className="faculty-social-icon-btn"
                     aria-label="Faculty Coordinator LinkedIn Profile"
                   >
@@ -467,7 +467,7 @@ export default function Team() {
                   <a
                     href={FACULTY_COORDINATOR.socials.website}
                     target="_blank"
-                    rel="noreferrer noopener"
+                    rel="noopener noreferrer"
                     className="faculty-social-icon-btn"
                     aria-label="VIT-AP Official Website"
                   >

@@ -51,14 +51,35 @@ function escapeHtml(str) {
 }
 
 export default async function handler(req, res) {
-  // CORS support
+  // Security headers & Origin boundary
+  const origin = req.headers.origin || '';
+  const allowedOrigins = [
+    'https://acm-official.vercel.app',
+    'https://acm-vitap.vercel.app',
+    'https://acm.vitap.ac.in',
+    'http://localhost:5173',
+    'http://localhost:3000',
+  ];
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else if (!origin) {
+    // Direct same-origin or server-to-server request
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  } else {
+    // Untrusted cross-origin request
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0]);
+  }
+
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-Type, Date'
   );
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();

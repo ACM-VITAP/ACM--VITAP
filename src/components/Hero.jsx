@@ -30,16 +30,13 @@ const YoutubeIcon = () => (
 export default function Hero({ onNavigate, lowPower = false }) {
   return (
     <section className="hero-universe" id="home">
-      <RobotVideo lowPower={lowPower} />
-      <NexGreeting />
-
       {/* Far Left Edge Social Column & Scroll Indicator */}
       <div className="hero-left-sidebar" aria-label="Social links and scroll">
         <div className="hero-social-strip">
           <a
             href="https://www.linkedin.com/company/acm-student-chapter-vit-ap/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="hero-social-icon-btn"
             aria-label="LinkedIn"
           >
@@ -48,7 +45,7 @@ export default function Hero({ onNavigate, lowPower = false }) {
           <a
             href="https://www.instagram.com/acm_vitap?cplk=OG9hYWFjdWJuOTRx"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="hero-social-icon-btn"
             aria-label="Instagram"
           >
@@ -57,7 +54,7 @@ export default function Hero({ onNavigate, lowPower = false }) {
           <a
             href="https://www.youtube.com/@vit-apacmstudentchapterclu6341"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="hero-social-icon-btn"
             aria-label="YouTube"
           >
@@ -104,7 +101,7 @@ export default function Hero({ onNavigate, lowPower = false }) {
             <a
               href="https://www.youtube.com/@vit-apacmstudentchapterclu6341"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="btn-glass-secondary"
             >
               <div className="btn-play-circle">
@@ -115,8 +112,11 @@ export default function Hero({ onNavigate, lowPower = false }) {
           </div>
         </div>
 
-        {/* Center & Right areas display the cinematic spaceship observation deck */}
-        <div className="hero-3d-visual-zone" aria-hidden="true" />
+        {/* Center & Right visual zone: Robot Companion & NEX Greeting */}
+        <div className="hero-3d-visual-zone">
+          <RobotVideo lowPower={lowPower} />
+          <NexGreeting />
+        </div>
       </div>
     </section>
   );

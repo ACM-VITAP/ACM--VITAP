@@ -2,6 +2,7 @@
 // src/App.jsx — Master ACM VIT-AP Computational Universe Application
 // ---------------------------------------------------------------------------
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import { createPortal } from 'react-dom';
 import { Canvas } from '@react-three/fiber';
 import { ArrowRight, ChevronRight, Globe as GlobeIcon, X } from 'lucide-react';
 import Loader from './components/Loader.jsx';
@@ -261,7 +262,55 @@ function EventGallery() {
       <div className="event-gallery-heading"><div className="section-eyebrow-badge"><span>EVENT ARCHIVE</span></div><h2 className="section-headline-large">MOMENTS THAT <span className="blue-highlight">INSPIRE.</span></h2><p className="section-subtext-lede">Choose an event to explore its photos and relive the experience.</p></div>
       <div className="event-list-grid">{events.map((event, index) => <button className="event-list-card" style={{ '--event-index': index }} key={event.label} onClick={() => setSelected(event)}><img src={event.image} alt="" loading="lazy" decoding="async" /><span className="event-list-card-copy"><small>{event.category}</small><strong>{event.label}</strong><span>View photos <ArrowRight size={15} /></span></span></button>)}</div>
     </> : <div className="event-detail"><button className="event-detail-back" onClick={() => setSelected(null)}>← All events</button><div className="event-detail-heading"><div><span className="gallery-memory-category">{selected.category}</span><h2>{selected.label}</h2></div><p>Event memories from ACM VIT-AP · Click any photo to expand</p></div>{selected.video && <div className="event-feature-video"><video src={selected.video} autoPlay loop muted playsInline preload="metadata" controls aria-label={`${selected.label} event video`} /></div>}<div className="event-photo-grid">{selected.photos.map((photo, index) => <button className="event-photo-button" style={{ '--photo-index': index }} key={photo} type="button" onClick={() => setLightbox({ photos: selected.photos, index, label: selected.label })} aria-label={`Open ${selected.label} photo ${index + 1}`}><img src={photo} alt={`${selected.label} event memory`} loading="lazy" decoding="async" /></button>)}</div></div>}
-    {lightbox && <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={`${lightbox.label} photo viewer`} onClick={() => setLightbox(null)} onTouchStart={(event) => { touchStart.current = event.touches[0].clientX; }} onTouchEnd={(event) => { const delta = event.changedTouches[0].clientX - touchStart.current; if (Math.abs(delta) > 45) moveLightbox(delta > 0 ? -1 : 1); }}><button className="gallery-lightbox-close" type="button" onClick={() => setLightbox(null)} aria-label="Close photo viewer"><X size={24} /></button><button className="gallery-lightbox-nav gallery-lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); moveLightbox(-1); }} aria-label="Previous photo">‹</button><div className="gallery-lightbox-stage" onClick={(event) => event.stopPropagation()}><img src={lightbox.photos[lightbox.index]} alt={`${lightbox.label} photo ${lightbox.index + 1}`} decoding="async" fetchPriority="high" /><div className="gallery-lightbox-meta"><span>{lightbox.label}</span><strong>{lightbox.index + 1} / {lightbox.photos.length}</strong></div></div><button className="gallery-lightbox-nav gallery-lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); moveLightbox(1); }} aria-label="Next photo">›</button></div>}
+    {lightbox && typeof document !== 'undefined' && createPortal(
+      <div
+        className="gallery-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${lightbox.label} photo viewer`}
+        onClick={() => setLightbox(null)}
+        onTouchStart={(event) => { touchStart.current = event.touches[0].clientX; }}
+        onTouchEnd={(event) => {
+          const delta = event.changedTouches[0].clientX - touchStart.current;
+          if (Math.abs(delta) > 45) moveLightbox(delta > 0 ? -1 : 1);
+        }}
+      >
+        <button className="gallery-lightbox-close" type="button" onClick={() => setLightbox(null)} aria-label="Close photo viewer">
+          <X size={24} />
+        </button>
+        <button
+          className="gallery-lightbox-nav gallery-lightbox-prev"
+          type="button"
+          onClick={(event) => { event.stopPropagation(); moveLightbox(-1); }}
+          aria-label="Previous photo"
+        >
+          ‹
+        </button>
+        <div className="gallery-lightbox-stage" onClick={(event) => event.stopPropagation()}>
+          <div className="gallery-lightbox-image-wrap">
+            <img
+              src={lightbox.photos[lightbox.index]}
+              alt={`${lightbox.label} photo ${lightbox.index + 1}`}
+              decoding="async"
+              fetchPriority="high"
+            />
+          </div>
+          <div className="gallery-lightbox-meta">
+            <span>{lightbox.label}</span>
+            <strong>{lightbox.index + 1} / {lightbox.photos.length}</strong>
+          </div>
+        </div>
+        <button
+          className="gallery-lightbox-nav gallery-lightbox-next"
+          type="button"
+          onClick={(event) => { event.stopPropagation(); moveLightbox(1); }}
+          aria-label="Next photo"
+        >
+          ›
+        </button>
+      </div>,
+      document.body
+    )}
   </section>;
 }
 
@@ -291,7 +340,7 @@ export default function App() {
     const targetTab = tabId === 'join' ? 'contact' : tabId;
     setActiveTab(targetTab);
     window.location.hash = `#${targetTab}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   // High-performance smooth parallax: directly updates GPU transform via rAF (zero React re-renders)

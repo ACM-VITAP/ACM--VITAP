@@ -21,7 +21,6 @@ export default function Navbar({ activeSection = 'home', onNavigate }) {
       onNavigate(id);
     }
     setIsMobileOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const isContactActive = activeSection === 'contact' || activeSection === 'join';
