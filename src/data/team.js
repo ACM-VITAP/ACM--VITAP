@@ -25,7 +25,37 @@ export const FACULTY_COORDINATOR = {
 };
 
 // ─── 1] ADMIN TEAM ─────────────────────────────────────────────────────────
-// Tier 1: Core Presidency / Executive Leadership: President, Chief Advisor, Vice President
+// Tier 1A: Chief Advisors (Top-level executive advisory)
+export const ADMIN_CHIEF_ADVISORS = [
+  {
+    id: 'chief-advisor-1',
+    name: 'Tushar Kumaran',
+    role: 'Chief Advisor',
+    badge: 'EXECUTIVE ADVISOR',
+    photo: '/team-photos/tushar_passport.jpg',
+    photoCrop: 'center center',
+    quote: 'Guiding visionary computing initiatives and mentoring student leadership.',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+    },
+  },
+  {
+    id: 'chief-advisor-2',
+    name: 'Charan Achanta',
+    role: 'Chief Advisor',
+    badge: 'EXECUTIVE ADVISOR',
+    photo: '/team-photos/charan achanta.jpeg',
+    photoCrop: 'center center',
+    quote: 'Advising strategic development, industry engagement, and technical excellence.',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+    },
+  },
+];
+
+// Tier 1B: Core Presidency (President & Vice President)
 export const ADMIN_PRESIDENCY = [
   {
     id: 'president',
@@ -35,19 +65,6 @@ export const ADMIN_PRESIDENCY = [
     photo: '/team-photos/haaris_passport.jpg',
     photoCrop: 'center center',
     quote: 'Leading the computational frontier and uniting innovators across disciplines.',
-    socials: {
-      github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-    },
-  },
-  {
-    id: 'chief-advisor',
-    name: 'Tushar Kumaran',
-    role: 'Chief Advisor',
-    badge: 'EXECUTIVE ADVISOR',
-    photo: '/team-photos/tushar_passport.jpg',
-    photoCrop: 'center center',
-    quote: 'Guiding visionary computing initiatives and mentoring student leadership.',
     socials: {
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
@@ -336,13 +353,6 @@ export const DOMAIN_TEAMS = [
         role: 'Co-Lead',
         photo: '/team-photos/RUDRARAJU SAHASRA.jpg',
         quote: 'Creating interactive social stories, campaigns, and community engagement posts.',
-        socials: { github: 'https://github.com', linkedin: 'https://linkedin.com' },
-      },
-      {
-        id: 'social-colead-2',
-        name: 'Tulasi Ram P',
-        role: 'Co-Lead',
-        quote: 'Managing community announcements, event recaps, and digital analytics.',
         socials: { github: 'https://github.com', linkedin: 'https://linkedin.com' },
       },
     ],

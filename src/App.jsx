@@ -192,6 +192,10 @@ function EventGallery() {
     { label: 'ACM QUEST', category: 'COMPETITIONS', image: '/eventspictures/acmquest.webp', video: '/eventspictures/Acm Quest/2026-10-31 22-27-43.mp4', photos: [
       '/eventspictures/Acm Quest/1.webp', '/eventspictures/Acm Quest/2.webp',
     ] },
+    { label: 'CYBER SECURITY WEBINAR', category: 'INNOVATION', image: '/eventspictures/cybersecurity Webinar/event-banner.png', video: '/eventspictures/cybersecurity Webinar/video.webm', photos: [
+      '/eventspictures/cybersecurity Webinar/Poster.png',
+      '/eventspictures/cybersecurity Webinar/event-banner.png',
+    ] },
     { label: 'TREASURE HUNT', category: 'COMMUNITY', image: '/eventspictures/treasurehunt.webp', photos: [
       '/eventspictures/Treasure Hunt/IMG_2679.webp', '/eventspictures/Treasure Hunt/IMG_2698.webp',
       '/eventspictures/Treasure Hunt/IMG_2703.webp', '/eventspictures/Treasure Hunt/IMG_2729.webp',

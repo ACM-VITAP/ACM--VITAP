@@ -40,9 +40,6 @@ export default function CursorEffects() {
         reticleRef.current.classList.toggle('is-down', isMouseDown);
         reticleRef.current.classList.toggle('is-zoom', isZoomTarget);
       }
-      if (spotlightRef.current) {
-        spotlightRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-      }
       rafId = null;
     };
 
@@ -50,15 +47,17 @@ export default function CursorEffects() {
       mouseX = e.clientX;
       mouseY = e.clientY;
 
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateCursor);
+      }
+    };
+
+    const onPointerOver = (e) => {
       const target = e.target;
       if (target && target.closest) {
         const interactiveEl = target.closest(interactiveSelector);
         isHoveringInteractive = Boolean(interactiveEl);
         isZoomTarget = Boolean(target.closest('.event-photo-button, .gallery-lightbox-image-wrap'));
-      }
-
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateCursor);
       }
     };
 
@@ -79,6 +78,7 @@ export default function CursorEffects() {
     };
 
     window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerover', onPointerOver, { passive: true });
     window.addEventListener('pointerdown', onPointerDown, { passive: true });
     window.addEventListener('pointerup', onPointerUp, { passive: true });
     document.documentElement.addEventListener('mouseleave', onMouseLeave, { passive: true });

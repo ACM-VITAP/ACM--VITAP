@@ -5,6 +5,7 @@ import { EVENT_CATEGORIES } from '../data/events.js';
 const tiles = [
   ['treasure-hunt', 'Community', 'COMMUNITY EVENT', 'TREASURE HUNT', 'Decode. Discover. Conquer Together.', '12% 52%'],
   ['kbc', 'Competitions', 'COMPETITION', 'KBC – KAUN BANEGA CODEPATHI', 'Play. Think. Code. Win.', '48% 46%'],
+  ['cyber-security-webinar', 'Tech Talks', 'TECH TALK', 'CYBER SECURITY WEBINAR WITH SANDEEP KUMAR', 'Defend. Detect. Decode Digital Threats.', 'center center'],
   ['ashutosh', 'Tech Talks', 'TECH TALK', 'ASHUTOSH WEBINAR – BEYOND THE CLASSROOM', 'Real Conversations. Deeper Perspectives.', '82% 46%'],
   ['prompt-battle', 'Competitions', 'COMMUNITY EVENT', 'PROMPT BATTLE', 'Imagine. Prompt. Create.', '16% 80%'],
   ['technical-workshop', 'Workshops', 'WORKSHOP', 'TECHNICAL WORKSHOP', 'Learn. Build. Grow.', '52% 80%'],
@@ -19,6 +20,7 @@ const tiles = [
   image: {
     'kbc': '/eventspictures/KBC.webp',
     'treasure-hunt': '/eventspictures/treasurehunt.webp',
+    'cyber-security-webinar': '/eventspictures/cybersecurity Webinar/event-banner.png',
     'ashutosh': '/eventspictures/ashutosh.webp',
     'prompt-battle': '/eventspictures/promptbattle.webp',
     'technical-workshop': '/eventspictures/technical workshop.webp',

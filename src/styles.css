@@ -1441,19 +1441,8 @@ ol {
   width: 100%;
   min-height: calc(100vh - 8rem);
   padding-top: 6rem;
-  animation: viewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes viewFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: cinematicViewFadeIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
 }
 
 .section-full {
@@ -2091,8 +2080,10 @@ a:focus-visible {
   width: 100%;
 }
 
-/* Executive Tier (President & VP side-by-side) has prominent width */
-.team-grid-2col.executive-tier {
+/* Executive Tier (Chief Advisors & Core Presidency side-by-side) has prominent width */
+.team-grid-2col.executive-tier,
+.team-grid-2col.advisors-tier,
+.team-grid-2col.presidency-tier {
   max-width: 780px;
 }
 
@@ -3545,8 +3536,8 @@ section[id],
     0 0 28px rgba(0, 212, 255, .34),
     inset 0 0 0 1px rgba(255, 255, 255, .16);
 }
-@keyframes archiveCardIn { to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes photoReveal { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes archiveCardIn { to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
+@keyframes photoReveal { from { opacity: 0; transform: translate3d(0, 16px, 0) scale(.98); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .event-list-card, .event-photo-grid img { animation: none; opacity: 1; transform: none; } .event-list-card::after { display: none; } }
 
 /* Cinematic people archive treatment */
@@ -3564,7 +3555,7 @@ section[id],
 .member-name-heading { position: relative; z-index: 1; text-shadow: 0 2px 18px rgba(0,0,0,.45); }
 .dept-selection-card { animation: teamCardReveal .7s cubic-bezier(.16,1,.3,1) both; }
 .dept-selection-card:nth-child(2) { animation-delay: .06s; }.dept-selection-card:nth-child(3) { animation-delay: .12s; }.dept-selection-card:nth-child(4) { animation-delay: .18s; }.dept-selection-card:nth-child(5) { animation-delay: .24s; }.dept-selection-card:nth-child(6) { animation-delay: .3s; }.dept-selection-card:nth-child(7) { animation-delay: .36s; }
-@keyframes teamCardReveal { from { opacity: 0; transform: translateY(18px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes teamCardReveal { from { opacity: 0; transform: translate3d(0, 16px, 0) scale(.99); } to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .team-glass-member-card, .dept-selection-card { animation: none; opacity: 1; } .team-glass-member-card:hover .member-avatar-placeholder, .team-glass-member-card:hover .member-profile-img { transform: none; } }
 
 /* Final mobile pass — scoped to small screens so desktop composition is unchanged. */
@@ -4969,13 +4960,12 @@ section[id],
 /* ═══════════════════════════════════════════════════════════════════════════ */
 /* 3. CYBER RETICLE / PRECISION CROSSHAIR CURSOR                               */
 /* ═══════════════════════════════════════════════════════════════════════════ */
-/* Completely hide default Windows OS cursor on desktop pointer devices */
+/* Completely hide default Windows OS cursor on desktop pointer devices without universal selector reflows */
 @media (pointer: fine) {
   html,
-  body,
-  *,
-  *::before,
-  *::after,
+  body {
+    cursor: none !important;
+  }
   a,
   button,
   [role="button"],
@@ -4986,21 +4976,9 @@ section[id],
   }
 }
 
+/* Disable cursor spotlight continuously re-rasterizing background pixels */
 .cursor-spotlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 480px;
-  height: 480px;
-  margin-top: -240px;
-  margin-left: -240px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 3;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.055) 0%, rgba(30, 144, 255, 0.015) 35%, transparent 70%);
-  transform: translate3d(-1000px, -1000px, 0);
-  will-change: transform;
-  transition: opacity 0.3s ease;
+  display: none !important;
 }
 
 /* Master reticle container centered exactly on pointer coordinate */
@@ -5015,10 +4993,11 @@ section[id],
   pointer-events: none;
   z-index: 999999;
   will-change: transform;
-  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              height 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              margin-top 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              margin-left 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-200px, -200px, 0);
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-top 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              margin-left 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Center laser precision dot */
@@ -5210,17 +5189,6 @@ section[id],
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes viewFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -6533,12 +6501,13 @@ section[id],
   position: relative;
   z-index: 1;
   gap: .85rem;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .exec-presidency-duo .exec-member-compact:last-child {
-  grid-column: 1 / -1;
-  width: calc(50% - .425rem);
-  justify-self: center;
+  grid-column: auto;
+  width: 100%;
+  justify-self: auto;
 }
 
 .exec-member-compact {
@@ -7339,7 +7308,9 @@ section[id],
   }
 
   /* Team grids */
-  .team-grid-2col.executive-tier {
+  .team-grid-2col.executive-tier,
+  .team-grid-2col.advisors-tier,
+  .team-grid-2col.presidency-tier {
     max-width: 100%;
     grid-template-columns: 1fr;
   }

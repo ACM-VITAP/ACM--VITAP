@@ -25,7 +25,7 @@ import {
   Globe,
   Quote,
 } from 'lucide-react';
-import { FACULTY_COORDINATOR, ADMIN_PRESIDENCY, ADMIN_CORE_OFFICERS, ADMIN_MANAGERS, DOMAIN_TEAMS } from '../data/team.js';
+import { FACULTY_COORDINATOR, ADMIN_CHIEF_ADVISORS, ADMIN_PRESIDENCY, ADMIN_CORE_OFFICERS, ADMIN_MANAGERS, DOMAIN_TEAMS } from '../data/team.js';
 
 // Lucide icon dictionary mapping for Department Cards
 const DEPARTMENT_ICONS = {
@@ -502,13 +502,28 @@ export default function Team() {
       ) : activeTab === 'admin' ? (
         /* ─── 1] ADMIN TEAM VIEW ─────────────────────────────────────── */
         <div className="admin-team-structured-layout">
-          {/* ROW 1: 3 in a row (Chief Advisor, President, Vice President) */}
+          {/* ROW 1: Chief Advisors (Top-level executive advisory - 2 in a row) */}
           <div className="admin-tier-section">
             <div className="tier-header-badge">
               <Crown size={14} />
-              <span>Core Presidency & Executive Advisory</span>
+              <span>Chief Advisors</span>
             </div>
-            <div className="team-grid-3col executive-tier">
+            <div className="team-grid-2col advisors-tier">
+              {ADMIN_CHIEF_ADVISORS.map((member) => (
+                <MemberCard key={member.id} member={member} variant="executive" />
+              ))}
+            </div>
+          </div>
+
+          <div className="tier-connector-line" />
+
+          {/* ROW 2: Core Presidency (President & Vice President side-by-side) */}
+          <div className="admin-tier-section">
+            <div className="tier-header-badge">
+              <Crown size={14} />
+              <span>Core Presidency</span>
+            </div>
+            <div className="team-grid-2col presidency-tier">
               {ADMIN_PRESIDENCY.map((member) => (
                 <MemberCard key={member.id} member={member} variant="executive" />
               ))}
@@ -517,7 +532,7 @@ export default function Team() {
 
           <div className="tier-connector-line" />
 
-          {/* ROW 2: 3 in a row (Secretary, Joint Secretary, Treasurer) */}
+          {/* ROW 3: 3 in a row (Secretary, Joint Secretary, Treasurer) */}
           <div className="admin-tier-section">
             <div className="tier-header-badge">
               <Shield size={14} />
@@ -532,7 +547,7 @@ export default function Team() {
 
           <div className="tier-connector-line" />
 
-          {/* ROW 3: 2 in a row (Club Manager & Technical Manager) */}
+          {/* ROW 4: Operations & Management */}
           <div className="admin-tier-section">
             <div className="tier-header-badge">
               <Users size={14} />
